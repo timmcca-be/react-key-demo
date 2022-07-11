@@ -1,26 +1,40 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import "./App.css";
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    const [ingredients, setIngredients] = useState(["eggs", "cheese", "bacon"]);
+
+    // moves last ingredient to start
+    const shuffle = () => setIngredients((ingredients) =>
+        [ingredients[ingredients.length - 1]].concat(
+            ingredients.slice(0, ingredients.length - 1)));
+
+    return (
+        <div className="App">
+        <h1>omelette maker</h1>
+        <button onClick={shuffle}>shuffle ingredients</button>
+        <h2>this version has no keys :(</h2>
+        {ingredients.map((ingredient) => (
+            <label
+                // no key prop!
+                style={{display: "block"}}
+            >
+                <input type="checkbox" />
+                {ingredient}
+            </label>
+        ))}
+        <h2>this version has keys :)</h2>
+        {ingredients.map((ingredient) => (
+            <label
+                key={ingredient}
+                style={{display: "block"}}
+            >
+                <input type="checkbox" />
+                {ingredient}
+            </label>
+        ))}
+        </div>
+    );
 }
 
 export default App;
